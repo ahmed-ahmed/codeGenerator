@@ -1,0 +1,21 @@
+'use strict';
+
+import template from './catalog-item-result.html';
+
+function CatalogItemResultController() {
+    'ngInject';
+
+    this.$onInit = () => {
+    };
+}
+
+const catalogItemResultComponent = {
+    bindings: {
+    },
+    controller: CatalogItemResultController,
+    template
+};
+
+angular.module('scifinder.catalogItemResult')
+    .component('sfCatalogItemResult', catalogItemResultComponent);
+
