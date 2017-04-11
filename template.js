@@ -8,8 +8,18 @@ exports.generator = {
     actions: [
         {
             type: 'add',
-            path: '<<name>>.txt',
+            path: '<<kebabCase name>>.js',
             template: 'templates/component.js'
+        },
+        {
+            type: 'add',
+            path: '<<kebabCase name>>.html',
+            template: 'templates/component.html'
+        },
+        {
+            type: 'add',
+            path: '<<kebabCase name>>.spec.js',
+            template: 'templates/component.spec.js'
         }
     ]
 }
