@@ -1,5 +1,6 @@
+# Code Generator
 
-create template as follow 
+### create template as follow 
 
 ```js
 'use strict';
@@ -22,9 +23,10 @@ const <<camelCase name>>Component = {
 
 angular.module('scifinder.<<camelCase name>>')
     .component('sf<<capCase name>>', <<camelCase name>>Component);
+```
 
-
-create generator file as follow 
+### create generator file as follow 
+```js
 exports.generator = {
     description: 'This is a component generator',
     prompts: [
@@ -40,8 +42,10 @@ exports.generator = {
         }
     ]
 }
+```
 
 
-
-run node index.js
-
+run 
+```sh
+node index.js
+```
