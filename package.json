@@ -1,5 +1,5 @@
 {
-  "name": "code-gen",
+  "name": "simple-code-generator",
   "version": "0.0.1",
   "description": "A simple code generator",
   "main": "index.js",
@@ -17,7 +17,9 @@
     "figlet": "^1.2.0",
     "inquirer": "^3.0.6",
     "lodash": "^4.17.4",
+    "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "prompt": "^1.0.0"
+    "prompt": "^1.0.0",
+    "simple-git": "^1.70.0"
   }
 }

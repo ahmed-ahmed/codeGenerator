@@ -11,6 +11,21 @@ var clear       = require('clear');
 var figlet      = require('figlet');
 var mkdirp = require('mkdirp');
 
+var argv = require('minimist')(process.argv);
+var install = argv['install'];// | argv['i']
+
+if(install) {
+	var dir = install.split('/')[1];
+	let destination = `${generatorsLoacation}/${dir}/`
+	console.log(destination);
+	ensureDirectoryExistence(destination+ '/index.js');
+
+	var simpleGit = require('simple-git')(destination);
+
+	simpleGit.clone(`https://github.com/${install}`, destination)
+
+	process.exit();
+}
 // get all generators names 
 var gens = fs.readdirSync(generatorsLoacation+ '/');
 //////////////////////////
