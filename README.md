@@ -1,11 +1,5 @@
 # Code Generator
 
-## Install 
-
-```
-npm i simple-code-generator
-```
-
 ## create template
 
 ```js
@@ -54,4 +48,10 @@ exports.generator = {
 run 
 ```sh
 node index.js
+```
+
+## Install 
+
+```
+npm i simple-code-generator
 ```
