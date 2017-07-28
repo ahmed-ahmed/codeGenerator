@@ -1,5 +1,11 @@
 # Code Generator
 
+## Install 
+
+```
+npm i simple-code-generator
+```
+
 ### create template as follow 
 
 ```js
