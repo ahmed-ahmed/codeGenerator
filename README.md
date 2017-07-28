@@ -6,7 +6,7 @@
 npm i simple-code-generator
 ```
 
-### create template as follow 
+## create template
 
 ```js
 'use strict';
@@ -31,7 +31,7 @@ angular.module('scifinder.<<camelCase name>>')
     .component('sf<<capCase name>>', <<camelCase name>>Component);
 ```
 
-### create generator file as follow 
+## create generator file as follow 
 ```js
 exports.generator = {
     description: 'This is a component generator',
