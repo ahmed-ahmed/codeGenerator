@@ -1,24 +1,24 @@
 #!/usr/bin/env node
-
-const generatorsLoacation = `${getUserHome()}/.gen`;
-
-var path = require('path');
 var prompt = require('prompt');
 var fs = require('fs');
-var _ = require('lodash');
+
 var chalk       = require('chalk');
 var clear       = require('clear');
 var figlet      = require('figlet');
 var mkdirp = require('mkdirp');
-
+var helper = require('./helper')
 var argv = require('minimist')(process.argv);
+
+
 var install = argv['install'];// | argv['i']
+const generatorsLoacation = `${helper.getUserHome()}/.gen`;
+
 
 if(install) {
 	var dir = install.split('/')[1];
 	let destination = `${generatorsLoacation}/${dir}/`
 	console.log(destination);
-	ensureDirectoryExistence(destination+ '/index.js');
+	helper.ensureDirectoryExistence(destination+ '/index.js');
 
 	var simpleGit = require('simple-git')(destination);
 
@@ -26,7 +26,9 @@ if(install) {
 
 	process.exit();
 }
+
 // get all generators names 
+helper.createDirIfNotExists(generatorsLoacation);
 var gens = fs.readdirSync(generatorsLoacation+ '/');
 //////////////////////////
 clear();
@@ -61,11 +63,11 @@ inquirer.prompt(question).then(function (answers) {
 			if(a.type === 'add') {
 				try {  
 				    var data = fs.readFileSync(`${selectedGenerator}/${a.template}`, 'utf8');
-				    let destination = formate(a.path, result);
+				    let destination = helper.formate(a.path, result);
 				    console.log(destination);
-				    let formattedOutput = formate(data,  result);
+				    let formattedOutput = helper.formate(data,  result);
 
-					ensureDirectoryExistence(destination);
+					helper.ensureDirectoryExistence(destination);
 				    // mkdirp.sync(destination)
 
 				    fs.writeFileSync(destination, formattedOutput);
@@ -76,67 +78,3 @@ inquirer.prompt(question).then(function (answers) {
 		})
 	});
 })
-
-function ensureDirectoryExistence(filePath) {
-  var dirname = path.dirname(filePath);
-  if (fs.existsSync(dirname)) {
-    return true;
-  }
-  ensureDirectoryExistence(dirname);
-  fs.mkdirSync(dirname);
-}
-
-
-// function mkdirp(filepath) {
-//     var dirname = path.dirname(filepath);
-
-//     if (!fs.existsSync(dirname)) {
-//         mkdirp(dirname);
-//     }
-
-//     fs.mkdirSync(filepath);
-// }
-
-
-function getUserHome() {
-  return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
-}
-
-function formate(input, result) {
-	// console.log(input)
-	let pattern = /<<(\w*)\s*(\w*)>>/gm;
-
-	while (matches = pattern.exec(input)) {
-		if(matches[2]) {//formatting added
-			let functionName = matches[1];
-			let varName = matches[2];
-			input = input.replace(`${functionName} `, '')
-					.replace(`<<${varName}>>`
-						,'${' +functionName + '(result.' + varName + ')}')
-					// .replace('<<${m[2]}>>', '${result.'+ matches[1]+ '}');
-
-		} else {
-	 	    input = input.replace(matches[0], '${result.'+ matches[1]+ '}');
-		}
- 	}
-
- 	return eval('`'+input+'`', result);
-}
-
-
-function lowerCase(value) {
-	return value.toLowerCase();
-}
-
-function kebabCase(value) {
-	return _.kebabCase(value);
-}
-
-function camelCase(value) {
-	return _.camelCase(value);
-}
-
-function capCase(s)
-{
-    return s[0].toUpperCase() + s.slice(1);
-}
